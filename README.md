@@ -1,7 +1,9 @@
 # TMPS_lab_1 - calculator app in c#
 By Ciumac Nichita
+
 Task : Build an app that will follow SOLID Principles using an OOP programing language
 General Theory :
+
 S - Single Responsibility Principle: a class should have only one reason to change.
 O - Open/Closed Principle: entities should be open for extension but closed for modification.
 L - Liskov Substitution Principle: subtypes must be substitutable for their base types.
