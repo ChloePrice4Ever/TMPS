@@ -1,4 +1,4 @@
-# TMPS_lab_1 - Calculator app in c#
+# TMPS_lab_1 - Calculator app in C#
 By Ciumac Nichita
 
 Task : Build an app that will follow SOLID Principles using an OOP programing language
