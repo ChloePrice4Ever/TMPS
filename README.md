@@ -5,12 +5,17 @@ Task : Build an app that will follow SOLID Principles using an OOP programing la
 General Theory :
 
 S - Single Responsibility Principle: a class should have only one reason to change.
+
 O - Open/Closed Principle: entities should be open for extension but closed for modification.
+
 L - Liskov Substitution Principle: subtypes must be substitutable for their base types.
+
 I - Interface Segregation Principle: clients should not be forced to depend on interfaces they do not use.
+
 D - Dependency Inversion Principle: high-level modules should not depend on low-level modules. Both should depend on abstractions.
 
 For this task I decided to create a simple calculator application that will follow all these principles and be easy to implement using c# language.
+
 This code is a simple implementation of a calculator that takes two numbers and an operation, and returns the result of applying that operation to the two numbers.
 
 The IOperation interface defines a single Calculate method that accepts two double parameters and returns a double result. This interface is implemented by four different classes - Addition, Subtraction, Multiplication, and Division, each of which provides an implementation of the Calculate method corresponding to the corresponding mathematical operation.
