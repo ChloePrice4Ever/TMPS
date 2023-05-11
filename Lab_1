@@ -1,0 +1,108 @@
+using System;
+
+interface IOperation
+{
+    double Calculate(double num1, double num2);
+}
+
+class Addition : IOperation
+{
+    public double Calculate(double num1, double num2)
+    {
+        return num1 + num2;
+    }
+}
+
+class Subtraction : IOperation
+{
+    public double Calculate(double num1, double num2)
+    {
+        return num1 - num2;
+    }
+}
+
+class Multiplication : IOperation
+{
+    public double Calculate(double num1, double num2)
+    {
+        return num1 * num2;
+    }
+}
+
+class Division : IOperation
+{
+    public double Calculate(double num1, double num2)
+    {
+        if (num2 == 0)
+            throw new ArgumentException("Cannot divide by zero");
+
+        return num1 / num2;
+    }
+}
+
+class Calculator
+{
+    private IOperation operation;
+
+    public Calculator(IOperation operation)
+    {
+        this.operation = operation;
+    }
+
+    public double Calculate(double num1, double num2)
+    {
+        return operation.Calculate(num1, num2);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Enter the first number: ");
+        double num1 = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("Enter the second number: ");
+        double num2 = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("Enter the operation (+, -, *, /): ");
+        string op = Console.ReadLine();
+
+        IOperation operation = null;
+
+        switch (op)
+        {
+            case "+":
+                operation = new Addition();
+                break;
+
+            case "-":
+                operation = new Subtraction();
+                break;
+
+            case "*":
+                operation = new Multiplication();
+                break;
+
+            case "/":
+                operation = new Division();
+                break;
+
+            default:
+                Console.WriteLine("Invalid operation");
+                return;
+        }
+
+        Calculator calculator = new Calculator(operation);
+
+        try
+        {
+            double result = calculator.Calculate(num1, num2);
+            Console.WriteLine("Result: " + result);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+}
