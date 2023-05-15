@@ -70,7 +70,7 @@ Observer 2 a primit o notificare: Mesaj nou
 
 # TMPS_lab_3 - code in C# where patterns are used:Adapter,Bridge.
 Main tasks:
-    1. By creating a new project, or extending your last one (Lab work Nr2), implement at least 2 structural design patterns in your project:
+1. By creating a new project, or extending your last one (Lab work Nr2), implement at least 2 structural design patterns in your project:
 
 The implemented design pattern should help to perform the tasks involved in your system.
 The object creation mechanisms/patterns can now be buried into the functionalities instead of using them into the client.
