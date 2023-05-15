@@ -68,7 +68,7 @@ Observer 1 a primit o notificare: Mesaj de test
 Observer 2 a primit o notificare: Mesaj de test
 Observer 2 a primit o notificare: Mesaj nou
 
-# TMPS_lab_3 - code in C# where patterns are used: client, constructor, factories and models
+# TMPS_lab_3 - code in C# where patterns are used:Adapter,Bridge.
 Main tasks:
     1. By creating a new project, or extending your last one (Lab work Nr2), implement at least 2 structural design patterns in your project:
 
@@ -89,100 +89,171 @@ Results/Screenshots/Conclusions
 
 Theoretical background:
     Structural design patterns are a category of design patterns that focus on the composition of classes and objects to form larger structures and systems. They provide a way to organize objects and classes in a way that is both flexible and efficient, while allowing for the reuse and modification of existing code. Structural design patterns address common problems encountered in the composition of classes and objects, such as how to create new objects that inherit functionality from existing objects, how to create objects that share functionality without duplicating code, or how to define relationships between objects in a flexible and extensible way.
-
-    Some examples of from this category of design patterns are:
+    Some examples of from this category of design patterns are:
 Adapter,Bridge,Composite,Decorator,Facade,Flyweight,Proxy
+
+Full code :
 
 ```
 using System;
-using System.Collections.Generic;
-```
-  Pattern Model
 
- ``` 
- // Modele
-class Product
+// Interfața pentru Adapter
+interface ITarget
 {
-    public string Name { get; set; }
-    public decimal Price { get; set; }
+    void Request();
 }
-```
-In this code snippet we created the Product class, which represents a model of the product.
 
-Pattern Client
-
-```
-// Client
-class Client
+// Clasa Adaptee
+class Adaptee
 {
-    public string Name { get; set; }
-    public List<Product> Products { get; set; }
-
-    // Constructor
-    public Client(string name)
+    public void SpecificRequest()
     {
-        Name = name;
-        Products = new List<Product>();
-    }
-
-    // Utilitati
-    public void AddProduct(Product product)
-    {
-        Products.Add(product);
-        Console.WriteLine($"{Name} added product: {product.Name}");
+        Console.WriteLine("Adaptee's SpecificRequest called");
     }
 }
-```
-Here we have defined the Customer class, which represents a customer using products. It stores a name and a list of products, and provides a method for adding products. I also included a constructor to initialize the client name.
 
-Pattern Fabricii
-
-```
-// Fabrici
-class ProductFactory
+// Adapterul care implementează interfața ITarget și utilizează Adaptee
+class Adapter : ITarget
 {
-    public Product CreateProduct(string name, decimal price)
+    private Adaptee _adaptee;
+
+    public Adapter(Adaptee adaptee)
     {
-        Console.WriteLine($"Creating product: {name}");
-        return new Product { Name = name, Price = price };
+        _adaptee = adaptee;
+    }
+
+    public void Request()
+    {
+        Console.WriteLine("Adapter's Request called");
+        _adaptee.SpecificRequest();
+    }
+}
+
+// Interfața pentru Bridge
+interface IMessageSender
+{
+    void SendMessage(string message);
+}
+
+// Implementarea Bridge
+class EmailSender : IMessageSender
+{
+    public void SendMessage(string message)
+    {
+        Console.WriteLine($"Sending email: {message}");
+    }
+}
+
+class SmsSender : IMessageSender
+{
+    public void SendMessage(string message)
+    {
+        Console.WriteLine($"Sending SMS: {message}");
+    }
+}
+
+// Clasa Composite
+class CompositeMessageSender : IMessageSender
+{
+    private List<IMessageSender> _messageSenders;
+
+    public CompositeMessageSender()
+    {
+        _messageSenders = new List<IMessageSender>();
+    }
+
+    public void AddMessageSender(IMessageSender messageSender)
+    {
+        _messageSenders.Add(messageSender);
+    }
+
+    public void SendMessage(string message)
+    {
+        Console.WriteLine("Sending message using Composite:");
+        foreach (var messageSender in _messageSenders)
+        {
+            messageSender.SendMessage(message);
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Utilizarea pattern-urilor
+
+        // Utilizarea Adapter și Bridge împreună
+        Adaptee adaptee = new Adaptee();
+        ITarget target = new Adapter(adaptee);
+
+        IMessageSender emailSender = new EmailSender();
+        IMessageSender smsSender = new SmsSender();
+
+        CompositeMessageSender compositeSender = new CompositeMessageSender();
+        compositeSender.AddMessageSender(emailSender);
+        compositeSender.AddMessageSender(smsSender);
+
+        target.Request(); // Utilizare Adapter
+        compositeSender.SendMessage("Hello, world!"); // Utilizare Bridge și Composite
     }
 }
 ```
-In this section we created the ProductFactory class, which represents a product factory and provides a CreateProduct method
-
-Pattern Product
-
+Pattern: Adapter
 ```
-// Modele
-class Product
-{
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-}
+// Adapter Pattern
+Adaptee adaptee = new Adaptee();
+ITarget target = new Adapter(adaptee);
+target.Request();
 ```
-Here, the Product class represents the data model for products. This has two properties: Name (product name) and Price (product price).
-The Utilities Pattern
+In this section, the Adapter pattern is used. We create an instance of the Adaptee class, which represents an existing system with a SpecificRequest method. We then create an instance of the Adapter class that implements the ITarget interface and uses the Adaptee to adapt between the two interfaces. Finally, we call the Request method on the target object.
 
+Pattern: Bridge
 ```
-// Utilitati
-public void AddProduct(Product product)
-{
-    Products.Add(product);
-    Console.WriteLine($"{Name} added product: {product.Name}");
-}
+// Bridge Pattern
+IMessageSender emailSender = new EmailSender();
+IMessageSender smsSender = new SmsSender();
+
+CompositeMessageSender compositeSender = new CompositeMessageSender();
+compositeSender.AddMessageSender(emailSender);
+compositeSender.AddMessageSender(smsSender);
+
+compositeSender.SendMessage("Hello, world!");
 ```
-In this section, we have included the AddProduct method in the Customer class, which adds a product to the customer's product list. This uses the Console class to display a message to the console, thus providing utility functionality.
+In this section, the Bridge pattern is used. We define the IMessageSender interface and create two classes that implement it: EmailSender and SmsSender. These classes represent concrete implementations of a message sending system. We then create an instance of the CompositeMessageSender class, which implements the IMessageSender interface and can compose multiple IMessageSender objects to send messages collectively. Finally, we add the emailSender and smsSender to the compositeSender and call the SendMessage method on it.
 
-These are the patterns used in the code above. We have Model (Product), Client (Client) that uses products, Factory (ProductFactory) that creates products, and Utilities (AddProduct) to add products and display messages.
+Now, let's provide the explanations in English:
 
-   In this example, we created the classes Client (the client that uses the products), Product (the data model for the products), ProductFactory (the product factory), and Program (the main class that contains the Main method).
+Pattern: Adapter
+```
+// Adapter Pattern
+Adaptee adaptee = new Adaptee();
+ITarget target = new Adapter(adaptee);
+target.Request();
+```
+In this section, the Adapter pattern is used. We create an instance of the Adaptee class, which represents an existing system with a specific method (SpecificRequest). We then create an instance of the Adapter class that implements the ITarget interface and uses the Adaptee to adapt between the two interfaces. Finally, we call the Request method on the target object.
 
-Patterns used:
+Pattern: Bridge
+```
+// Bridge Pattern
+IMessageSender emailSender = new EmailSender();
+IMessageSender smsSender = new SmsSender();
 
-Customer: The Customer class represents a customer who uses products. It stores a list of products and provides a method for adding products.
-Constructor: The constructor of the Customer class is used to initialize the customer name and product list.
-Factories: The ProductFactory class represents a product factory and provides a CreateProduct method to create new Product objects.
-Models: The Product class represents the data model for products and has Name and Price properties.
-Utilities: In this example, we used the Console.WriteLine method to display messages to the console. This can be considered a utility for displaying information.
-I hope this example is useful for you! If you need further clarification, don't hesitate to ask.
+CompositeMessageSender compositeSender = new CompositeMessageSender();
+compositeSender.AddMessageSender(emailSender);
+compositeSender.AddMessageSender(smsSender);
+
+compositeSender.SendMessage("Hello, world!");
+```
+In this section, the Bridge pattern is used. We define the IMessageSender interface and create two classes that implement it: EmailSender and SmsSender. These classes represent concrete implementations of a message sending system. We then create an instance of the CompositeMessageSender class, which implements the IMessageSender interface and can compose multiple IMessageSender objects to send messages collectively. Finally, we add the emailSender and smsSender to the compositeSender and call the SendMessage method on it.
+
+Please note that the explanation above refers to the usage of the patterns in the given code example. The patterns themselves have broader applications and can be used in different contexts to solve various design problems.
+
+
+
+
+
+
+
+
   
