@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+
+// Clasa Singleton pentru sistemul de notificări
+public class NotificationSystem
+{
+    private static NotificationSystem instance;
+    private List<INotificationObserver> observers;
+
+    private NotificationSystem()
+    {
+        observers = new List<INotificationObserver>();
+    }
+
+    public static NotificationSystem GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = new NotificationSystem();
+        }
+        return instance;
+    }
+
+    public void Attach(INotificationObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void Detach(INotificationObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    public void Notify(string message)
+    {
+        foreach (var observer in observers)
+        {
+            observer.Update(message);
+        }
+    }
+}
+
+// Interfața Observer pentru observatori
+public interface INotificationObserver
+{
+    void Update(string message);
+}
+
+// Clasa observator care implementează interfața INotificationObserver
+public class NotificationObserver : INotificationObserver
+{
+    private string name;
+
+    public NotificationObserver(string name)
+    {
+        this.name = name;
+    }
+
+    public void Update(string message)
+    {
+        Console.WriteLine($"{name} a primit o notificare: {message}");
+    }
+}
+
+// Exemplu de utilizare
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Obținem instanța sistemului de notificări
+        NotificationSystem notificationSystem = NotificationSystem.GetInstance();
+
+        // Creăm doi observatori
+        NotificationObserver observer1 = new NotificationObserver("Observer 1");
+        NotificationObserver observer2 = new NotificationObserver("Observer 2");
+
+        // Înregistrăm observatorii în sistemul de notificări
+        notificationSystem.Attach(observer1);
+        notificationSystem.Attach(observer2);
+
+        // Trimitem o notificare către observatori
+        notificationSystem.Notify("Mesaj de test");
+
+        // Dezregistrăm observatorul 1
+        notificationSystem.Detach(observer1);
+
+        // Trimitem o altă notificare către observatori
+        notificationSystem.Notify("Mesaj nou");
+
+        Console.ReadLine();
+    }
+}
