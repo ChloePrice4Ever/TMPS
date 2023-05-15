@@ -118,8 +118,6 @@ compositeSender.SendMessage("Hello, world!");
 ```
 In this section, the Bridge pattern is used. We define the IMessageSender interface and create two classes that implement it: EmailSender and SmsSender. These classes represent concrete implementations of a message sending system. We then create an instance of the CompositeMessageSender class, which implements the IMessageSender interface and can compose multiple IMessageSender objects to send messages collectively. Finally, we add the emailSender and smsSender to the compositeSender and call the SendMessage method on it.
 
-Now, let's provide the explanations in English:
-
 Pattern: Adapter
 ```
 // Adapter Pattern
