@@ -93,12 +93,14 @@ Theoretical background:
     Some examples of from this category of design patterns are:
 Adapter,Bridge,Composite,Decorator,Facade,Flyweight,Proxy
 
-```using System;
+```
+using System;
 using System.Collections.Generic;
 ```
   Pattern Model
 
- ``` // Modele
+ ``` 
+ // Modele
 class Product
 {
     public string Name { get; set; }
@@ -109,7 +111,8 @@ In this code snippet we created the Product class, which represents a model of t
 
 Pattern Client
 
-```// Client
+```
+// Client
 class Client
 {
     public string Name { get; set; }
@@ -134,7 +137,8 @@ Here we have defined the Customer class, which represents a customer using produ
 
 Pattern Fabricii
 
-```// Fabrici
+```
+// Fabrici
 class ProductFactory
 {
     public Product CreateProduct(string name, decimal price)
@@ -148,7 +152,8 @@ In this section we created the ProductFactory class, which represents a product 
 
 Pattern Product
 
-```// Modele
+```
+// Modele
 class Product
 {
     public string Name { get; set; }
@@ -158,7 +163,8 @@ class Product
 Here, the Product class represents the data model for products. This has two properties: Name (product name) and Price (product price).
 The Utilities Pattern
 
-```// Utilitati
+```
+// Utilitati
 public void AddProduct(Product product)
 {
     Products.Add(product);
