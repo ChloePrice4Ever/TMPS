@@ -93,36 +93,48 @@ Theoretical background:
     Some examples of from this category of design patterns are:
 Adapter,Bridge,Composite,Decorator,Facade,Flyweight,Proxy
 
-using System;
+```using System;
 using System.Collections.Generic;
+```
+  Pattern Model
 
-// Modelul de date
+ ``` // Modele
 class Product
 {
     public string Name { get; set; }
     public decimal Price { get; set; }
 }
+```
+In this code snippet we created the Product class, which represents a model of the product.
 
-// Clientul care utilizează produsele
+Pattern Client
+
+```// Client
 class Client
 {
     public string Name { get; set; }
     public List<Product> Products { get; set; }
 
+    // Constructor
     public Client(string name)
     {
         Name = name;
         Products = new List<Product>();
     }
 
+    // Utilitati
     public void AddProduct(Product product)
     {
         Products.Add(product);
         Console.WriteLine($"{Name} added product: {product.Name}");
     }
 }
+```
+Here we have defined the Customer class, which represents a customer using products. It stores a name and a list of products, and provides a method for adding products. I also included a constructor to initialize the client name.
 
-// Fabrica de produse
+Pattern Fabricii
+
+```// Fabrici
 class ProductFactory
 {
     public Product CreateProduct(string name, decimal price)
@@ -131,36 +143,33 @@ class ProductFactory
         return new Product { Name = name, Price = price };
     }
 }
+```
+In this section we created the ProductFactory class, which represents a product factory and provides a CreateProduct method
 
-class Program
+Pattern Product
+
+```// Modele
+class Product
 {
-    static void Main(string[] args)
-    {
-        // Utilizarea pattern-urilor
-
-        // Crearea fabricii de produse
-        ProductFactory factory = new ProductFactory();
-
-        // Crearea unui client
-        Client client = new Client("John");
-
-        // Crearea și adăugarea de produse pentru client
-        Product product1 = factory.CreateProduct("Laptop", 1500);
-        client.AddProduct(product1);
-
-        Product product2 = factory.CreateProduct("Phone", 800);
-        client.AddProduct(product2);
-
-        // Afisarea produselor clientului
-        Console.WriteLine($"Products for {client.Name}:");
-        foreach (var product in client.Products)
-        {
-            Console.WriteLine($"{product.Name} - ${product.Price}");
-        }
-    }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
 }
+```
+Here, the Product class represents the data model for products. This has two properties: Name (product name) and Price (product price).
+The Utilities Pattern
 
-  In this example, we created the classes Client (the client that uses the products), Product (the data model for the products), ProductFactory (the product factory), and Program (the main class that contains the Main method).
+```// Utilitati
+public void AddProduct(Product product)
+{
+    Products.Add(product);
+    Console.WriteLine($"{Name} added product: {product.Name}");
+}
+```
+In this section, we have included the AddProduct method in the Customer class, which adds a product to the customer's product list. This uses the Console class to display a message to the console, thus providing utility functionality.
+
+These are the patterns used in the code above. We have Model (Product), Client (Client) that uses products, Factory (ProductFactory) that creates products, and Utilities (AddProduct) to add products and display messages.
+
+   In this example, we created the classes Client (the client that uses the products), Product (the data model for the products), ProductFactory (the product factory), and Program (the main class that contains the Main method).
 
 Patterns used:
 
@@ -170,23 +179,4 @@ Factories: The ProductFactory class represents a product factory and provides a 
 Models: The Product class represents the data model for products and has Name and Price properties.
 Utilities: In this example, we used the Console.WriteLine method to display messages to the console. This can be considered a utility for displaying information.
 I hope this example is useful for you! If you need further clarification, don't hesitate to ask.
-  
-  // Modele
-class Product
-{
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-}
-
-  Pattern-ul Modelului
-
- ``` // Modele
-class Product
-{
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-}
-```
-  
-  
   
