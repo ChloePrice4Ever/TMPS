@@ -67,3 +67,126 @@ The result displayed in the console will be:
 Observer 1 a primit o notificare: Mesaj de test
 Observer 2 a primit o notificare: Mesaj de test
 Observer 2 a primit o notificare: Mesaj nou
+
+# TMPS_lab_3 - code in C# where patterns are used: client, constructor, factories and models
+Main tasks:
+    1. By creating a new project, or extending your last one (Lab work Nr2), implement at least 2 structural design patterns in your project:
+
+The implemented design pattern should help to perform the tasks involved in your system.
+The object creation mechanisms/patterns can now be buried into the functionalities instead of using them into the client.
+There should only be one client for the whole system.
+    2. Keep your files grouped (into packages/directories) by their responsibilities (an example project structure):
+
+client,domain,factories,builder,models,utilities,data(if applies)
+    3. Document your work in a separate markdown file according to the requirements presented below (the structure can be extended of course):
+Topic of the laboratory work
+Author
+Introduction/Theory/Motivation
+Implementation & Explanation (you can include code snippets as well)
+Indicate the location of the code snippet
+Emphasize the main idea and motivate the usage of the pattern
+Results/Screenshots/Conclusions
+
+Theoretical background:
+    Structural design patterns are a category of design patterns that focus on the composition of classes and objects to form larger structures and systems. They provide a way to organize objects and classes in a way that is both flexible and efficient, while allowing for the reuse and modification of existing code. Structural design patterns address common problems encountered in the composition of classes and objects, such as how to create new objects that inherit functionality from existing objects, how to create objects that share functionality without duplicating code, or how to define relationships between objects in a flexible and extensible way.
+
+    Some examples of from this category of design patterns are:
+Adapter,Bridge,Composite,Decorator,Facade,Flyweight,Proxy
+
+using System;
+using System.Collections.Generic;
+
+// Modelul de date
+class Product
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+}
+
+// Clientul care utilizează produsele
+class Client
+{
+    public string Name { get; set; }
+    public List<Product> Products { get; set; }
+
+    public Client(string name)
+    {
+        Name = name;
+        Products = new List<Product>();
+    }
+
+    public void AddProduct(Product product)
+    {
+        Products.Add(product);
+        Console.WriteLine($"{Name} added product: {product.Name}");
+    }
+}
+
+// Fabrica de produse
+class ProductFactory
+{
+    public Product CreateProduct(string name, decimal price)
+    {
+        Console.WriteLine($"Creating product: {name}");
+        return new Product { Name = name, Price = price };
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Utilizarea pattern-urilor
+
+        // Crearea fabricii de produse
+        ProductFactory factory = new ProductFactory();
+
+        // Crearea unui client
+        Client client = new Client("John");
+
+        // Crearea și adăugarea de produse pentru client
+        Product product1 = factory.CreateProduct("Laptop", 1500);
+        client.AddProduct(product1);
+
+        Product product2 = factory.CreateProduct("Phone", 800);
+        client.AddProduct(product2);
+
+        // Afisarea produselor clientului
+        Console.WriteLine($"Products for {client.Name}:");
+        foreach (var product in client.Products)
+        {
+            Console.WriteLine($"{product.Name} - ${product.Price}");
+        }
+    }
+}
+
+  In this example, we created the classes Client (the client that uses the products), Product (the data model for the products), ProductFactory (the product factory), and Program (the main class that contains the Main method).
+
+Patterns used:
+
+Customer: The Customer class represents a customer who uses products. It stores a list of products and provides a method for adding products.
+Constructor: The constructor of the Customer class is used to initialize the customer name and product list.
+Factories: The ProductFactory class represents a product factory and provides a CreateProduct method to create new Product objects.
+Models: The Product class represents the data model for products and has Name and Price properties.
+Utilities: In this example, we used the Console.WriteLine method to display messages to the console. This can be considered a utility for displaying information.
+I hope this example is useful for you! If you need further clarification, don't hesitate to ask.
+  
+  // Modele
+class Product
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+}
+
+  Pattern-ul Modelului
+
+ ``` // Modele
+class Product
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+}
+```
+  
+  
+  
