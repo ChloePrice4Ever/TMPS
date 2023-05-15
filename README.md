@@ -40,17 +40,7 @@ Some Theory:
 
     Some examples of this kind of design patterns are:
 
-Singleton
-
-Builder
-
-Prototype
-
-Object Pooling
-
-Factory Method
-
-Abstract Factory
+>>Singleton,Builder,Prototype,Object Pooling,Factory Method,Abstract Factory
 
 The code in Lab 2 demonstrates the implementation of two design patterns: Singleton and Observer. Let's analyze each part in more detail:
 
